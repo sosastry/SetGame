@@ -4,3 +4,5 @@
 *.iml
 # ignore output files
 out/*
+# ignore .sh files
+*.sh

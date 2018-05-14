@@ -172,6 +172,8 @@ public class Solver {
         int setCardCount = Integer.parseInt(args[1]);
 
         //TODO: account for duplicate cards
+
+        //TODO: check for second arg being >= 3
         Solver solver = new Solver();
         Card [] cards = solver.generateCardsForTesting(totalCardCount);
         solver.setCards(cards);
