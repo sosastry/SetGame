@@ -17,12 +17,4 @@ public class SolverTest {
 		}
 	 */
 
-	@Test
-	public void testGetCard() {
-		Card card = new Card(Shape.getRandomShape(), Color.RED,
-				Number.getRandomNumber(), Shading.getRandomShading());
-		assertEquals(Color.RED, card.getColor());
-
-	}
-
 }

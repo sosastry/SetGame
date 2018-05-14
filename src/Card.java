@@ -1,93 +1,34 @@
 /* Class to store individual card information for each attribute */
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Card {
 
-	private Shape shape; 
-	private Color color;
-	private Number number;
-	private Shading shading;
+	/* Dimensions hashmap that stores arbitrary number of dimensions and their respective values for the card
+	* Ex: "Color": "Red", "Shape": "Oval", "BackgroundColor" : "Red" */
+	private Map<String, String> dimensionsMap;
 
-	public Card(Shape shape, Color color, Number number, Shading shading) {
-		this.shape = shape;
-		this.color = color;
-		this.number = number;
-		this.shading = shading;
-	} 
 
-	public Shape getShape() {
-		return this.shape;
+	public Map<String, String> getDimensionsMap() {
+		return dimensionsMap;
 	}
 
-	public Color getColor() {
-		return this.color;
+	// Initializes Dimensions Map
+	public Card(Map<String,String> dimensionsMap) {
+		this.dimensionsMap = new HashMap<>();
+		this.dimensionsMap = dimensionsMap;
 	}
 
-	public Number getNumber() {
-		return this.number;
-	}
-
-	public Shading getShading() {
-		return this.shading;
-	}
-
+	@Override
 	public String toString() {
-		return "Color: " + getColor() + ", Shape: " + getShape() +  ", Number: " + getNumber()
-				+ " Shading: " + getShading();
-	}
+		StringBuilder sb = new StringBuilder();
 
-}
+		for (String dimension : this.dimensionsMap.keySet()) {
+			sb.append(dimension + ": " + dimensionsMap.get(dimension) + "\n");
+		}
 
-
-enum Shape {
-	OVAL,
-	SQUIGGLE,
-	DIAMOND;
-
-	private static final Shape[] shapes = values();
-	private static final Random random_number = new Random();
-
-	public static Shape getRandomShape() {
-		return shapes[random_number.nextInt(shapes.length)];
+		return sb.toString();
 	}
 }
-
-enum Color {
-	RED,
-	PURPLE,
-	GREEN;
-
-	private static final Color[] colors = values();
-	private static final Random random_number = new Random();
-
-	public static Color getRandomColor() {
-		return colors[random_number.nextInt(colors.length)];
-	}
-}
-
-enum Number {
-	ONE,
-	TWO,
-	THREE;
-
-	private static final Number[] numbers = values();
-	private static final Random random_number = new Random();
-
-	public static Number getRandomNumber() {
-		return numbers[random_number.nextInt(numbers.length)];
-	}
-}
-
-enum Shading {
-	SOLID,
-	STRIPED,
-	OUTLINED;
-
-	private static final Shading[] shadings = values();
-	private static final Random random_number = new Random();
-
-	public static Shading getRandomShading() {
-		return shadings[random_number.nextInt(shadings.length)];
-	}
-} 
