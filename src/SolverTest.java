@@ -11,7 +11,7 @@ public class SolverTest {
     private Card[] validSet;
     private Card[] invalidSet;
 
-    /* Generates few cards that should actually be a set*/
+    /* Generates card arrays with valid set, invalid set and random set*/
 	@Before
     public void setUp() {
 	    randomCards = new Card[9];
@@ -155,6 +155,16 @@ public class SolverTest {
 	    Solver solver = new Solver();
 	    boolean isSet = solver.isSet(invalidSet);
 	    assertFalse(isSet);
+    }
+
+    @Test
+    public void testInitializeCardCollection() {
+	    Solver solver = new Solver();
+        Card[] cards = solver.generateCardCollection(5);
+        assertEquals(5, cards.length);
+
+
+        solver.generateCardCombinations(3);
     }
 
 }

@@ -33,10 +33,8 @@ public class Solver {
                 if (!card.getDimensionsMap().containsKey(dimension)) {
                     return false;
                 }
-
                 dimensionValues.add(card.getDimensionsMap().get(dimension));
             }
-
             isSet &= isSetHelper(dimensionValues);
             dimensionValues.clear();
         }
@@ -61,7 +59,6 @@ public class Solver {
         }
 
         return uniqueValues || sameValues;
-
     }
 
     /**
@@ -69,7 +66,6 @@ public class Solver {
      * @param setCardCount size of set (as determined by user)
      */
     public void generateCardCombinations(int setCardCount) {
-
         int[] temp = new int[setCardCount];
         int[] cardIndeces = new int[cards.length];
 
@@ -88,6 +84,7 @@ public class Solver {
      * @param end  last index of the combination
      * @param curr current index in "cardIndeces" that we're working with
      * @param setCardCount size of the set
+     * @return string with printed set information
      */
     public void cardCombinationsUtil(int cardIndeces[], int temp[], int beginning, int end, int curr, int setCardCount) {
         if (curr == setCardCount) {
@@ -101,8 +98,7 @@ public class Solver {
 
             if (isSet(cardTemp)) {
                 totalSetsCounter++;
-                System.out.println("----- Set " + totalSetsCounter + " Found -----");
-                printSet(cardTemp);
+                printSet(cardTemp, totalSetsCounter);
             }
             return;
         }
@@ -116,21 +112,25 @@ public class Solver {
     /**
      * Prints out set of cards in nice format
      * @param set set of cards that compose a valid set to print out
+     * @return formatted string of cards in set
      */
-    public void printSet(Card set[]) {
+    public String printSet(Card set[], int totalSetsCounter) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("----- Set " + totalSetsCounter + " Found -----");
+
         for (int i = 0; i < set.length; i++) {
-            System.out.println("Card " + i);
-            System.out.println(set[i]);
+            sb.append("Card " + i);
+            sb.append(set[i]);
         }
+        return sb.toString();
     }
 
     /**
-     * Randomly generates array of cards with stub card data for testing
-     * @param totalCards total number of cards in set game
+     * Generates cards with various dimensions/attributes to initialize game
+     * @param totalCards total number of cards in set game to generate
      * @return array of cards with randomly-generated attributes/dimensions
      */
-    // TODO: assumptions: assuming "None" of a dimension will be listed (e.g no shading)
-    public Card[] generateCardsForTesting(int totalCards) {
+    public Card[] generateCardCollection(int totalCards) {
         Card [] cards = new Card[totalCards];
 
         List<String> colors = new ArrayList<>();
@@ -169,6 +169,7 @@ public class Solver {
         numbers.add("Four");
 
         String color, backgroundcolor, shadingVal, shapeVal, number;
+        Map<String,String> dimensions;
 
         /* Generates random set of cards from options above */
         for (int i = 0; i<totalCards; i++) {
@@ -178,7 +179,7 @@ public class Solver {
             shapeVal = shape.get(new Random().nextInt(shape.size()));
             number = numbers.get(new Random().nextInt(numbers.size()));
 
-            Map<String,String> dimensions = new HashMap<>();
+            dimensions = new HashMap<>();
             dimensions.put("Color", color);
             dimensions.put("Background Color", backgroundcolor);
             dimensions.put("Shading", shadingVal);
@@ -187,7 +188,6 @@ public class Solver {
 
             cards[i] = new Card(dimensions);
         }
-
         return cards;
     }
 
@@ -206,9 +206,8 @@ public class Solver {
             return;
         }
 
-        //TODO: account for duplicate cards
         Solver solver = new Solver();
-        Card [] cards = solver.generateCardsForTesting(totalCardCount);
+        Card [] cards = solver.generateCardCollection(totalCardCount);
         solver.setCards(cards);
         solver.generateCardCombinations(setCardCount);
 
