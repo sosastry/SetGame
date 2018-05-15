@@ -7,10 +7,16 @@ import static org.junit.Assert.*;
 
 public class SolverTest {
 
+    private Card[] randomCards;
+    private Card[] validSet;
+    private Card[] invalidSet;
+
     /* Generates few cards that should actually be a set*/
 	@Before
     public void setUp() {
-	    Card [] cards = new Card[9];
+	    randomCards = new Card[9];
+	    validSet = new Card[3];
+	    invalidSet = new Card[3];
 
         List<String> colors = new ArrayList<>();
         colors.add("Red");
@@ -54,7 +60,7 @@ public class SolverTest {
         dimensions.put("Shape", "Triangle");
         dimensions.put("Number", "One");
 
-        cards[0] = new Card(dimensions);
+        validSet[0] = new Card(dimensions);
 
         dimensions = new HashMap<>();
         dimensions.put("Color", "Yellow");
@@ -63,7 +69,7 @@ public class SolverTest {
         dimensions.put("Shape", "Triangle");
         dimensions.put("Number", "One");
 
-        cards[1] = new Card(dimensions);
+        validSet[1] = new Card(dimensions);
 
         dimensions = new HashMap<>();
         dimensions.put("Color", "Yellow");
@@ -72,7 +78,7 @@ public class SolverTest {
         dimensions.put("Shape", "Triangle");
         dimensions.put("Number", "One");
 
-        cards[2] = new Card(dimensions);
+        validSet[2] = new Card(dimensions);
 
         dimensions = new HashMap<>();
         dimensions.put("Color", "Green");
@@ -81,7 +87,7 @@ public class SolverTest {
         dimensions.put("Shape", "Oval");
         dimensions.put("Number", "Three");
 
-        cards[3] = new Card(dimensions);
+        randomCards[0] = new Card(dimensions);
 
         dimensions = new HashMap<>();
         dimensions.put("Color", "Red");
@@ -90,9 +96,36 @@ public class SolverTest {
         dimensions.put("Shape", "Squiggle");
         dimensions.put("Number", "Two");
 
-        cards[4] = new Card(dimensions);
+        randomCards[1] = new Card(dimensions);
 
-        for (int i=5; i<9; i++) { //TODO: update to total cards
+        dimensions = new HashMap<>();
+        dimensions.put("Color", "Red");
+        dimensions.put("Background Color", "Yellow");
+        dimensions.put("Shading", "Stripe");
+        dimensions.put("Shape", "Squiggle");
+        dimensions.put("Number", "Two");
+
+        invalidSet[0] = new Card(dimensions);
+
+        dimensions = new HashMap<>();
+        dimensions.put("Color", "Green");
+        dimensions.put("Background Color", "Yellow");
+        dimensions.put("Shading", "Stripe");
+        dimensions.put("Shape", "Squiggle");
+        dimensions.put("Number", "Two");
+
+        invalidSet[1] = new Card(dimensions);
+
+        dimensions = new HashMap<>();
+        dimensions.put("Color", "Green");
+        dimensions.put("Background Color", "Yellow");
+        dimensions.put("Shading", "Stripe");
+        dimensions.put("Shape", "Squiggle");
+        dimensions.put("Number", "Two");
+
+        invalidSet[2] = new Card(dimensions);
+
+        for (int i=2; i<9; i++) { //TODO: update to total cards
             String color = colors.get(new Random().nextInt(colors.size()));
             String backgroundcolor = backgroundcolors.get(new Random().nextInt(backgroundcolors.size()));
             String shadingVal = shading.get(new Random().nextInt(shading.size()));
@@ -106,13 +139,22 @@ public class SolverTest {
             dimensions.put("Shape", shapeVal);
             dimensions.put("Number", number);
 
-            cards[i] = new Card(dimensions);
+            randomCards[i] = new Card(dimensions);
         }
     }
 
 	@Test
-    public void testSolverGame() {
+    public void testValidSet() {
+        Solver solver = new Solver();
+        boolean isSet = solver.isSet(validSet);
+        assertTrue(isSet);
+    }
 
+    @Test
+    public void testInvalidSet() {
+	    Solver solver = new Solver();
+	    boolean isSet = solver.isSet(invalidSet);
+	    assertFalse(isSet);
     }
 
 }
