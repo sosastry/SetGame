@@ -125,7 +125,7 @@ public class SolverTest {
 
         invalidSet[2] = new Card(dimensions);
 
-        for (int i=2; i<9; i++) { //TODO: update to total cards
+        for (int i=2; i<9; i++) { 
             String color = colors.get(new Random().nextInt(colors.size()));
             String backgroundcolor = backgroundcolors.get(new Random().nextInt(backgroundcolors.size()));
             String shadingVal = shading.get(new Random().nextInt(shading.size()));
