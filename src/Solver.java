@@ -98,7 +98,7 @@ public class Solver {
 
             if (isSet(cardTemp)) {
                 totalSetsCounter++;
-                printSet(cardTemp, totalSetsCounter);
+                System.out.println(printSet(cardTemp, totalSetsCounter));
             }
             return;
         }
@@ -116,11 +116,11 @@ public class Solver {
      */
     public String printSet(Card set[], int totalSetsCounter) {
         StringBuilder sb = new StringBuilder();
-        sb.append("----- Set " + totalSetsCounter + " Found -----");
+        sb.append("----- Set " + totalSetsCounter + " Found -----\n");
 
         for (int i = 0; i < set.length; i++) {
-            sb.append("Card " + i);
-            sb.append(set[i]);
+            sb.append("Card " + i + "\n");
+            sb.append(set[i] + "\n");
         }
         return sb.toString();
     }
