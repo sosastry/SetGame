@@ -64,10 +64,6 @@ public class Solver {
 
     }
 
-    /* Generates all possible combinations of 3 given array of cards*/
-    /* @setCardCount: number of cards in each set
-     */
-
     /**
      * Prepares call to helper function that generates combinations of possible "sets" of size setCardCount
      * @param setCardCount size of set (as determined by user)
